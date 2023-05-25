@@ -1,0 +1,4 @@
+start solr=> solr.cmd start
+stop solr => solr.cmd stop -p=8983
+post data =>java -jar -Dc=techproducts -Dauto example\exampledocs\post.jar example\exampledocs\*
+create new core => solr.cmd create -c <core_name>

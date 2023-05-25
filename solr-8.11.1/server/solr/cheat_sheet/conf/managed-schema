@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Solr managed schema - automatically generated - DO NOT EDIT -->
+<schema name="default-config" version="1.6">
+  <uniqueKey>id</uniqueKey>
+  <fieldType name="binary" class="solr.BinaryField"/>
+  <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+  <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
+  <fieldType name="ignored" class="solr.StrField" indexed="false" stored="false" multiValued="true"/>
+  <fieldType name="pdate" class="solr.DatePointField" docValues="true"/>
+  <fieldType name="pdates" class="solr.DatePointField" docValues="true" multiValued="true"/>
+  <fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/>
+  <fieldType name="pdoubles" class="solr.DoublePointField" docValues="true" multiValued="true"/>
+  <fieldType name="pfloat" class="solr.FloatPointField" docValues="true"/>
+  <fieldType name="pfloats" class="solr.FloatPointField" docValues="true" multiValued="true"/>
+  <fieldType name="pint" class="solr.IntPointField" docValues="true"/>
+  <fieldType name="pints" class="solr.IntPointField" docValues="true" multiValued="true"/>
+  <fieldType name="plong" class="solr.LongPointField" docValues="true"/>
+  <fieldType name="plongs" class="solr.LongPointField" docValues="true" multiValued="true"/>
+  <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
+  <fieldType name="rank" class="solr.RankField"/>
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true"/>
+  <fieldType name="strings" class="solr.StrField" sortMissingLast="true" docValues="true" multiValued="true"/>
+  <fieldType name="text_cheat_sheet" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="([a-zA-Z])\1+" replacement="$1$1"/>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory" types="wdfftypes.txt" generateNumberParts="1" stemEnglishPossessive="1" splitOnCaseChange="0" preserveOriginal="0" catenateAll="0" catenateWords="1" catenateNumbers="0" generateWordParts="1" splitOnNumerics="0"/>
+      <filter class="solr.StopFilterFactory" words="lang/stopwords_en.txt" ignoreCase="true"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+      <filter class="solr.KStemFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="([a-zA-Z])\1+" replacement="$1$1"/>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory" types="wdfftypes.txt" generateNumberParts="0" stemEnglishPossessive="1" splitOnCaseChange="0" preserveOriginal="0" catenateAll="0" catenateWords="1" catenateNumbers="0" generateWordParts="1" splitOnNumerics="0"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ASCIIFoldingFilterFactory"/>
+      <filter class="solr.StopFilterFactory" words="lang/stopwords_en.txt" ignoreCase="true"/>
+      <filter class="solr.EnglishMinimalStemFilterFactory"/>
+      <filter class="solr.KStemFilterFactory"/>
+      <filter class="solr.SynonymFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100" multiValued="true">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory" words="stopwords.txt" ignoreCase="true"/>
+      <filter class="solr.SynonymGraphFilterFactory" expand="true" ignoreCase="true" synonyms="synonyms.txt"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <field name="_version_" type="plong" indexed="false" stored="false"/>
+  <field name="catch_all" type="text_cheat_sheet" multiValued="true" indexed="true" stored="false"/>
+  <field name="categories" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="cmd" type="text_general" multiValued="true" indexed="true" stored="true"/>
+  <field name="cmdDescs" type="text_cheat_sheet" multiValued="true" indexed="true" stored="true"/>
+  <field name="desc" type="text_general" indexed="true" stored="true"/>
+  <field name="favorites_count" type="pint" indexed="true" stored="true"/>
+  <field name="id" type="string" indexed="true" required="true" stored="true"/>
+  <field name="links" type="text_general" indexed="true" stored="true"/>
+  <field name="os" type="string" indexed="true" stored="true"/>
+  <field name="tags" type="string" multiValued="true" indexed="true" stored="true"/>
+  <field name="timestamp" type="pdate" indexed="true" stored="true"/>
+  <field name="title" type="text_cheat_sheet" indexed="true" stored="true"/>
+  <field name="type" type="string" indexed="true" stored="true"/>
+  <copyField source="cmdDescs" dest="catch_all"/>
+  <copyField source="title" dest="catch_all"/>
+</schema>

@@ -5,7 +5,7 @@
 * Labeling those data for AI or ML training
 * Implementing search engine for cheatsheet of commands
 
-### What we did right now?
+### What are we working right now?
 * Implemented search using Apache Solr (Inverted Index based search engine)(✅)
 * Developing full stack application in next.js(✅)
 * Scrapping data from website and seeding to solr (❌)
